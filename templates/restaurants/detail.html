@@ -1,5 +1,7 @@
 <h1>{{ restaurant.name }}</h1>
+<p>{{ restaurant.address }}</p>
 <p>{{ restaurant.description }}</p>
+
 <ul>
 {% for vote in restaurant.favorite_set.all %}
     <li>{{ favorite.favorite_text }}</li>
