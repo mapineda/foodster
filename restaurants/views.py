@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 # Create your views here.
@@ -12,7 +13,8 @@ def index(request):
 	return render(request, 'restaurants/index.html', context)
 
 def detail(request, restaurant_id):
-	return HttpResponse("You're looking at restaurant %s." % restaurant_id)
+	question = get_object_or_404(Restaurant, pk=restaurant_id)
+	return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
 
 def results(request, restaurant_id):
 	response = "You're looking at the results of restaurant %s."
