@@ -1,13 +1,20 @@
+from django.http import Http404
 from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
 
+
+from .models import Restaurant
+
 def index(request):
-	return HttpResponse("Hello, world. Vote on your favorite restaurant.")
+	latest_restaurant_list = Restaurant.objects.order_by('name')[:5]
+	context = {'latest_restaurant_list': latest_restaurant_list}
+	return render(request, 'restaurants/index.html', context)
 
 def detail(request, restaurant_id):
-	return HttpResponse("You're looking at restaurant %s." % restaurant_id)
+	question = get_object_or_404(Restaurant, pk=restaurant_id)
+	return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
 
 def results(request, restaurant_id):
 	response = "You're looking at the results of restaurant %s."
