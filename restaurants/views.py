@@ -1,5 +1,5 @@
-from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+# from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
@@ -13,7 +13,7 @@ def index(request):
 	return render(request, 'restaurants/index.html', context)
 
 def detail(request, restaurant_id):
-	question = get_object_or_404(Restaurant, pk=restaurant_id)
+	question = get_object_or_404(Restaurant, rk=restaurant_id)
 	return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
 
 def results(request, restaurant_id):
