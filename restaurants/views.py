@@ -1,4 +1,8 @@
 from django.shortcuts import get_object_or_404, render
+<<<<<<< HEAD
+=======
+# from django.shortcuts import render
+>>>>>>> 08686293ce14c9142e730dd943ad9b877539fc09
 
 # Create your views here.
 from django.http import HttpResponse
