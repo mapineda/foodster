@@ -13,7 +13,7 @@ def index(request):
 	return render(request, 'restaurants/index.html', context)
 
 def detail(request, restaurant_id):
-	question = get_object_or_404(Restaurant, rk=restaurant_id)
+	restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
 	return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
 
 def results(request, restaurant_id):
