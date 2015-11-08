@@ -5,9 +5,13 @@
 <p>{{ restaurant.description }}</p>
 <p>{{ restaurant.address }}</p>
 
-
-<ul>
-{% for vote in restaurant.favorite_set.all %}
-    <li>{{ favorite.favorite_text }}</li>
+<div>
+<form action="{% url 'restaurants:vote' restaurant.id %}" method="post">
+{% csrf_token %}
+{% for favorite in restaurant.favorite_set.all %}
+    <input type="radio" name="favorite" id="favorite{{ forloop.counter }}" value="{{ favorite.id }}" />
+    <label for="favorite{{ forloop.counter }}">{{ favorite.favorite_text }}</label><br />
 {% endfor %}
-</ul>
+<input type="submit" value="Vote" />
+</form>	
+</div>

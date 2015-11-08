@@ -11,6 +11,8 @@
 
 ## Resources
 
+[Django Foundation](https://www.djangoproject.com/) has excellent documentation and this application was built thanks to them. 
+
 ## Credit
 
 ## License

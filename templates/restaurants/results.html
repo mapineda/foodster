@@ -1,0 +1,9 @@
+<h1>{{ restaurant.restaurant.name }}</h1>
+
+<ul>
+{% for favorite in restaurant.favorite_set_all %}
+	<li>{{ favorite.favorite_text }} -- {{ favorite.votes }} vote{{ favorite.votes|pluralize| }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'restaurants:detail' restaurant.id %}">Vote Again?</a>
