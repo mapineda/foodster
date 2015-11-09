@@ -1,25 +1,41 @@
 from django.shortcuts import get_object_or_404, render
-
-# from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.views import generic
 # Create your views here.
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
+from .models import Restaurant, Favorite
 
-from .models import Restaurant
+class IndexView(generic.ListView):
+	template_name = 'restaurants/index.html'
+	context_object_name = 'latest_restaurant_list'
 
-def index(request):
-	latest_restaurant_list = Restaurant.objects.order_by('name')[:5]
-	context = {'latest_restaurant_list': latest_restaurant_list}
-	return render(request, 'restaurants/index.html', context)
+	def get_queryset(self):
+		"""Return the last six published restaurants."""
+		return Restaurant.objects.order_by('-name')[:6]
 
-def detail(request, restaurant_id):
-	restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
-	return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
+class DetailView(generic.DetailView):
+	model = Restaurant
+	template_name = 'restaurants/detail.html'
 
-def results(request, restaurant_id):
-	response = "You're looking at the results of restaurant %s."
-	return HttpResponse(response % restaurant_id)
+class ResultsView(generic.DetailView):
+	model = Restaurant
+	template_name = 'restaurants/results.html'
 
 def vote(request, restaurant_id):
-	return HttpResponse("You're voting on restaurant %s." % restaurant_id)
+	r = get_object_or_404(Restaurant, pk=restaurant_id)
+	try:
+		selected_favorite = r.favorite_set.get(pk=request.POST['favorite'])
+	except (KeyError, Favorite.DoesNotExist):
+		# Redisplay the restaurant voting form.
+		return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
+	else:
+		selected_favorite.votes += 1
+		selected_favorite.save()
+		# Always return an HttpResponseRedirect after successfully dealing
+		# with Post Data. This prevents data from being posted twice if a 
+		#user hits the Back button
+		return HttpResponseRedirect(reverse('restaurants/results', args=(r.id,)))	
+
+	
