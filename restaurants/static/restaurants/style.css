@@ -1,0 +1,14 @@
+body {
+	background: white url('http://rewriteconference.com/static/wp-content/uploads/2014/05/12_AustinSkylineSunset.jpg') no-repeat right bottom;
+}
+
+h1 {
+	color: white;
+}
+li a {
+	color: white;
+}
+
+ul {
+	list-style-type: none;
+}

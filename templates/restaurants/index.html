@@ -1,3 +1,7 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="../static/restaurants/style.css">
+
+<h1>Vote for your Favorite Downtown Restaurant</h1>
 {% if latest_restaurant_list %}
     <ul>
     {% for restaurant in latest_restaurant_list %}

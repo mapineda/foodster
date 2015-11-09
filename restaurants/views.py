@@ -13,10 +13,10 @@ class IndexView(generic.ListView):
 
 	def get_queryset(self):
 		"""Return the last six published restaurants."""
-		return Restaurant.objects.order_by('-pub_date')[:6]
+		return Restaurant.objects.order_by('-name')[:6]
 
 class DetailView(generic.DetailView):
-	model: Restaurant
+	model = Restaurant
 	template_name = 'restaurants/detail.html'
 
 class ResultsView(generic.DetailView):

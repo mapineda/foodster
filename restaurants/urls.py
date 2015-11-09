@@ -10,5 +10,5 @@ urlpatterns = [
 # ex: /restaurants/1/results/
 	url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
 # ex: /restaurants/1/vote/
-	url(r'^(?P<pk>[0-9]+)/vote/$', views.VoteView.as_view(), name='vote'),
+	url(r'^(?P<restaurant_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
