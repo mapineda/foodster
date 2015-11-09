@@ -24,17 +24,14 @@ def vote(request, restaurant_id):
 	try:
 		selected_favorite = r.favorite_set.get(pk=request.POST['favorite'])
 	except (KeyError, Favorite.DoesNotExist):
-		# Redisplay the question voting form.
-		return render(request, 'restaurants/detail.html', {
-			'restaurant' : r,
-			'error_message' : "You didn't select a favorite restaurant.",
-		})
+		# Redisplay the restaurant voting form.
+		return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
 	else:
-		selected_choice.votes += 1
-		selected_choice.save()
+		selected_favorite.votes += 1
+		selected_favorite.save()
 		# Always return an HttpResponseRedirect after successfully dealing
 		# with Post Data. This prevents data from being posted twice if a 
 		#user hits the Back button
-		return HttpResponseRedirect(reverse('restaurants/results', args=(p.id,)))	
+		return HttpResponseRedirect(reverse('restaurants/results', args=(r.id,)))	
 
 	

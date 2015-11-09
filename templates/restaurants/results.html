@@ -1,8 +1,13 @@
-<h1>{{ restaurant.restaurant.name }}</h1>
+<img src="{{ restaurant.logo_url }}">
+<h1>{{ restaurant.name }}</h1>
+<a href="{{ restaurant.website_url }}" target = "_blank">Website</a>
+<a href="{{ restaurant.menu_url }}" target = "_blank">Menu</a>
+<p>{{ restaurant.description }}</p>
+<p>{{ restaurant.address }}</p>
 
 <ul>
 {% for favorite in restaurant.favorite_set_all %}
-	<li>{{ favorite.favorite_text }} -- {{ favorite.votes }} vote{{ favorite.votes|pluralize| }}</li>
+	<li>{{ favorite.name }} -- {{ favorite.votes }} vote{{ favorite.votes|pluralize }}</li>
 {% endfor %}
 </ul>
 

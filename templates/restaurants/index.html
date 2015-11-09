@@ -1,7 +1,7 @@
 {% if latest_restaurant_list %}
     <ul>
     {% for restaurant in latest_restaurant_list %}
-        <li><a href="{% url 'detail' restaurant.id %}">{{ restaurant.name }}</a></li>
+    <li><a href="{% url 'restaurants:detail' restaurant.id %}">{{ restaurant.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

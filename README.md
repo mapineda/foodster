@@ -15,4 +15,6 @@
 
 ## Credit
 
+This application was built using pair programming over the course of 8 hours. Authors are [Robert W](http://github.com/) and [Mapineda](http://github.com/mapineda)
+
 ## License
