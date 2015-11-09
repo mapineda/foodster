@@ -1,23 +1,27 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views import generic
 # Create your views here.
 # from django.http import HttpResponse
 
 from .models import Restaurant, Favorite
 
-def index(request):
-	latest_restaurant_list = Restaurant.objects.order_by('name')[:6]
-	context = {'latest_restaurant_list': latest_restaurant_list}
-	return render(request, 'restaurants/index.html', context)
+class IndexView(generic.ListView):
+	template_name = 'restaurants/index.html'
+	context_object_name = 'latest_restaurant_list'
 
-def detail(request, restaurant_id):
-	restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
-	return render(request, 'restaurants/detail.html', {'restaurant': restaurant})
+	def get_queryset(self):
+		"""Return the last six published restaurants."""
+		return Restaurant.objects.order_by('-pub_date')[:6]
 
-def results(request, restaurant_id):
-	restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
-	return render(request, 'restaurants/results.html', {'restaurant' : restaurant})
+class DetailView(generic.DetailView):
+	model: Restaurant
+	template_name = 'restaurants/detail.html'
+
+class ResultsView(generic.DetailView):
+	model = Restaurant
+	template_name = 'restaurants/results.html'
 
 def vote(request, restaurant_id):
 	r = get_object_or_404(Restaurant, pk=restaurant_id)
